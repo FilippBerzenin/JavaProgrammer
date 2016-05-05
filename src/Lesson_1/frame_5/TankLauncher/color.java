@@ -1,4 +1,4 @@
-package Lesson_1.frame_5.TankLauncher.Enum;
+package Lesson_1.frame_5.TankLauncher;
 
 /**
  * Created by Samsung on 26.04.2016.

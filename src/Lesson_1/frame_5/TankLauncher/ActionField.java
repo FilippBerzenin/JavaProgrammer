@@ -12,6 +12,9 @@ public class ActionField extends JPanel {
     private Bullet bullet;
 
     void runTheGame() throws Exception {
+        tank.clean();
+//       tank.moveRandom();
+       tank.moveToQuadrant(5,5);
        tank.fire();
        tank.fire();
        tank.fire();
@@ -83,6 +86,65 @@ public class ActionField extends JPanel {
         }
     }
 
+    void scanTargetTop() throws Exception {
+        int indexHorizontal = getCoordinatesX();
+        tank.turn(tank.getTOP());
+        for (int i = tank.getY(); i > -(battelField.getBF_HEIGHT()/battelField.getDimentionY()); i -= (battelField.getBF_HEIGHT()/battelField.getDimentionY())) {
+            int indexVertikal = (i / (battelField.getBF_HEIGHT()/battelField.getDimentionY()));
+            if (battelField.scanquadrant(indexVertikal, indexHorizontal).equals("B")) {
+                System.out.println("We have target!");
+                tank.fire();
+            }
+        }
+    }
+
+    void scanTargetBottom() throws Exception {
+        int indexHorizontal = getCoordinatesX();
+        tank.turn(tank.getBOTTOM());
+        for (int i = tank.getY(); i < battelField.getBF_HEIGHT(); i += (battelField.getBF_HEIGHT()/battelField.getDimentionY())) {
+            int indexVertikal = (i / (battelField.getBF_HEIGHT()/battelField.getDimentionY()));
+            if (battelField.scanquadrant(indexVertikal, indexHorizontal).equals("B")) {
+                System.out.println("We have target!");
+                tank.fire();
+            }
+        }
+    }
+
+    void scanTargetLeft() throws Exception {
+        int indexVertikal = getCoordinatesY();
+        tank.turn(tank.getLEFT());
+        for (int i = tank.getX(); i > -(battelField.getBF_WIDTH()/battelField.getDimentionX()); i -= (battelField.getBF_WIDTH()/battelField.getDimentionX())) {
+            int indexHorizontal = (i / (battelField.getBF_WIDTH()/battelField.getDimentionX()));
+            if (battelField.scanquadrant(indexVertikal, indexHorizontal).equals("B")) {
+                System.out.println("We have target!");
+                tank.fire();
+            }
+        }
+    }
+
+    void scanTargetRight() throws Exception {
+        int indexVertikal = getCoordinatesY();
+        tank.turn(tank.getRIGHT());
+        for (int i = tank.getX(); i < battelField.getBF_WIDTH(); i += (battelField.getBF_WIDTH()/battelField.getDimentionX())) {
+            int indexHorizontal = (i / (battelField.getBF_WIDTH()/battelField.getDimentionX()));
+            if (battelField.scanquadrant(indexVertikal, indexHorizontal).equals("B")) {
+                System.out.println("We have target!");
+                tank.fire();
+            }
+        }
+    }
+
+    int getCoordinatesX() {
+        int CoordinatesX = tank.getX() / (battelField.getBF_WIDTH()/battelField.getDimentionX());
+        return CoordinatesX;
+    }
+
+    int getCoordinatesY() {
+        int CoordinatesY = tank.getY() / (battelField.getBF_HEIGHT()/battelField.getDimentionY());
+        return CoordinatesY;
+    }
+
+
 //    int bulletBorder(int direction) {
 //        int bulletBorder = 0;
 //        if (direction == tank.getTOP()) {
@@ -126,7 +188,7 @@ public class ActionField extends JPanel {
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
         frame.setLocation(750, 150);
-        frame.setMinimumSize(new Dimension(battelField.getBF_WIDTH(), battelField.getBF_HEIGHT() + 22+48));
+        frame.setMinimumSize(new Dimension(battelField.getBF_WIDTH()+16, battelField.getBF_HEIGHT()+38));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.getContentPane().add(this);
         frame.pack();
