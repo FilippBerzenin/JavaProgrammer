@@ -7,7 +7,7 @@ public class main {
     public static void main(String[] args) {
 
         TankInfo();
-//        printTank();
+        printTank();
         printClassExtendsTank();
     }
 
@@ -36,6 +36,8 @@ public class main {
                 System.out.println("myTank.color :" + myTank[i].getColor());
                 System.out.println("myTank.maxSpeed :" + myTank[i].getMaxSpeed());
                 System.out.println("myTank.crew :" + myTank[i].getCrew());
+//                System.out.println(myTank.toString());
+//                System.out.println(myTank.move());
                 System.out.println();
             }
         }
@@ -45,6 +47,8 @@ public class main {
                 System.out.println("myTank.color :" + tank.getColor());
                 System.out.println("myTank.maxSpeed :" + tank.getMaxSpeed());
                 System.out.println("myTank.crew :" + tank.getCrew());
+                System.out.println(tank.toString());
+                System.out.println(tank.move());
                 System.out.println();
             }
 

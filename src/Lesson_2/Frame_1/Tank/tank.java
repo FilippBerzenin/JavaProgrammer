@@ -6,11 +6,23 @@ public class tank {
 	private int maxSpeed;
 	private int crew;
 
-//	tank (String color, int maxSpeed, int crew) {
-//		this.color = color;
-//		this.maxSpeed = maxSpeed;
-//		this.crew = crew;
-//	}
+	tank () {
+	}
+
+	tank (String color, int maxSpeed, int crew) {
+		this.color = color;
+		this.maxSpeed = maxSpeed;
+		this.crew = crew;
+	}
+
+	@Override
+	public String toString() {
+		return "My main tank";
+	}
+
+	public String move () {
+		return "My tank is drive";
+	}
 
 	public void setColor(String color) {
 		this.color = color;
