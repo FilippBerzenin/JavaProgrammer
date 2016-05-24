@@ -15,4 +15,28 @@ public enum Direction {
     public static int getId () {
         return id;
     }
+
+//    private Direction randonTurn (int i) {
+//        Direction turn;
+//        switch (i) {
+//            case 1:
+//                turn =  Direction.TOP;
+//                return turn;
+//            break;
+//            case 2:
+//                turn =  Direction.BOTTOM;
+//                return turn;
+//            break;
+//            case 3:
+//                turn =  Direction.LEFT;
+//                return turn;
+//            break;
+//            case 4:
+//                turn =  Direction.RIGHT;
+//                return turn;
+//            break;
+//            default:
+//        }
+//        return null;
+//    }
 }

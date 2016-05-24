@@ -12,8 +12,9 @@ public class ActionField extends JPanel {
     private Bullet bullet;
 
     void runTheGame() throws Exception {
-        tank.clean();
-//       tank.moveRandom();
+       tank.clean();
+ //       BT7.moveToQuadrant(5,5);
+ //      tank.moveRandom();
        tank.moveToQuadrant(5,5);
        tank.fire();
        tank.fire();

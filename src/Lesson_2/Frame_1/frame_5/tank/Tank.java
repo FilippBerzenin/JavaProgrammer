@@ -48,17 +48,42 @@ public class Tank {
         af.processFire(bullet);
     }
 
-//    public void moveRandom()throws Exception  {
-//        Random r = new Random();
-//        int i;
-//        while (true) {
-//            i = r.nextInt(5);
-//            if (i > 0) {
-//                turn(i);
-//                move();
-//            }
-//        }
-//    }
+    public void moveRandom()throws Exception  {
+        Random r = new Random();
+        int i;
+        while (true) {
+            i = r.nextInt(5);
+            if (i > 0) {
+                turn(randonTurn(i));
+                move();
+            }
+        }
+    }
+
+    private Direction randonTurn (int i) {
+            Direction turnR = null;
+        switch (i) {
+            case 1:
+                turnR =  Direction.TOP;
+//                return turnR;
+            break;
+            case 2:
+                turnR =  Direction.BOTTOM;
+ //               return turnR;
+            break;
+            case 3:
+                turnR =  Direction.LEFT;
+ //               return turnR;
+            break;
+            case 4:
+                turnR =  Direction.RIGHT;
+   //             return turnR;
+                break;
+                default:
+            }
+        return turnR;
+    }
+
 
     public void tankDestroy () {
         x = -100;
