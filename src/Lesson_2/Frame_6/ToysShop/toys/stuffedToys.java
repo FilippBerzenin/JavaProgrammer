@@ -1,7 +1,8 @@
 package Lesson_2.Frame_6.ToysShop.toys;
 
-/**
- * Created by Samsung on 25.05.2016.
- */
-public class stuffedToys {
+import Lesson_2.Frame_6.ToysShop.toys.ENUMS.*;
+
+
+public class stuffedToys extends toys {
+
 }
