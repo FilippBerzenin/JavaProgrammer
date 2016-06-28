@@ -12,13 +12,15 @@ public class ActionField extends JPanel {
     private BattelField battelField;
 //    private Tank tank;
     private Tank defender;
-    private BT7 agressor;
+//    private BT7 agressor;
+    private Tiger agressor;
     private Bullet bullet;
     private Tank [] tanks = new Tank[2];
 
     void runTheGame() throws Exception {
 //        agressor.clean(agressor);
-        defender.clean(defender);
+//        defender.clean(defender);
+//        agressor.fire(agressor);
         defender.fire(defender);
         defender.fire(defender);
         defender.fire(defender);
@@ -229,29 +231,42 @@ public class ActionField extends JPanel {
 
     private boolean processInterceptionTank () {
         if (bullet.getDirction() == Direction.TOP) {
-            if ((agressor.getY()+64) == bullet.getY() && agressor.getX() == bullet.getX() - 25) {
+            if ((tanks[1].getY()+64) == bullet.getY() && tanks[1].getX() == bullet.getX() - 25) {
                 System.out.print("Bingo!");
+//                if (tanks[1].getArmor()>0) {
+//                    tanks[1].setArmor(tanks[1].getArmor()-1);
+//                }
 //                tankRecovery();
                 return true;
             }
         }
          else if (bullet.getDirction() == Direction.BOTTOM) {
-            if (agressor.getY() == bullet.getY() && agressor.getX() == bullet.getX() - 25) {
+            if (tanks[1].getY() == bullet.getY() && tanks[1].getX() == bullet.getX() - 25) {
                 System.out.print("Bingo!");
+//                if (tanks[1].getArmor()>0) {
+//                    tanks[1].setArmor(tanks[1].getArmor()-1);
+//                }
 //                tankRecovery();
                 return true;
             }
         }
         else if (bullet.getDirction() == Direction.LEFT) {
-            if (agressor.getX()+64 == bullet.getX() && agressor.getY() == bullet.getY() - 25) {
+            if (tanks[1].getX()+64 == bullet.getX() && tanks[1].getY() == bullet.getY() - 25) {
                 System.out.print("Bingo!");
+//                if (tanks[1].getArmor()>0) {
+//                    tanks[1].setArmor(tanks[1].getArmor()-1);
+//                }
 //                tankRecovery();
                 return true;
             }
         }
         else if (bullet.getDirction() == Direction.RIGHT) {
-            if (agressor.getX() == bullet.getX() && agressor.getY() == bullet.getY() - 25) {
+            if (tanks[1].getX() == bullet.getX() && tanks[1].getY() == bullet.getY() - 25) {
                 System.out.print("Bingo!");
+//                if (tanks[1].getArmor()>0) {
+//
+//                    tanks[1].setArmor(tanks[1].getArmor()-1);
+//                }
 //                tankRecovery();
                 return true;
             }
@@ -268,11 +283,21 @@ public class ActionField extends JPanel {
             return true;
         }
         else if (processInterceptionTank() == true) {
-            agressor.tankDestroy();
-            bullet.destroy();
-            repaint();
-            Thread.sleep(1700);
-            tankRecovery();
+            if (tanks[1].getArmor() > 0) {
+                System.out.println("Upss...");
+                    bullet.destroy();
+                    tanks[1].setArmor(tanks[1].getArmor()-1);
+
+            } else {
+                tanks[1].tankDestroy();
+                bullet.destroy();
+                repaint();
+                Thread.sleep(1700);
+                if (tanks[1].toString().equals("Main tank ")) {
+                    System.out.println("GAME OVER");
+//                System.exit(0);
+                } else tankRecovery();
+            }
         }
         return false;
     }
@@ -281,7 +306,7 @@ public class ActionField extends JPanel {
         String location = battelField.getAgressorLocation();
         int x = Integer.parseInt(location.split("_")[1]);
         int y = Integer.parseInt(location.split("_")[0]);
-        agressor = new BT7(this, battelField, x, y, Direction.LEFT);
+        agressor = new Tiger(this, battelField, x, y, Direction.LEFT);
         System.out.println("I am a live!");
         tanks[1] = agressor;
         repaint();
@@ -304,8 +329,8 @@ public class ActionField extends JPanel {
         tanks[0] = defender;
 
         String location = battelField.getAgressorLocation();
-        agressor = new BT7(this, battelField, Integer.parseInt(location.split("_")[1]),
-                Integer.parseInt(location.split("_")[0]), Direction.LEFT);
+        agressor = new Tiger(this, battelField, Integer.parseInt(location.split("_")[1]),
+                Integer.parseInt(location.split("_")[0]), Direction.RIGHT);
         tanks[1] = agressor;
         bullet = new Bullet(-100, -100, Direction.TOP);
 
