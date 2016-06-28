@@ -1,5 +1,7 @@
 package Lesson_2.Frame_6.tank;
 
+import java.util.Random;
+
 public class BattelField {
     private final int BF_WIDTH = 576;
     private final int BF_HEIGHT = 576;
@@ -8,8 +10,8 @@ public class BattelField {
             {"B", "B", "B", "B", "B", "B", "B", "B", "B"},
             {"B", " ", " ", " ", " ", " ", " ", " ", "B"},
             {"B", "B", "B", " ", "B", " ", "B", "B", "B"},
-            {"B", "B", "B", " ", " ", " ", "B", "B", "B"},
-            {"B", "B", "B", " ", "B", " ", "B", "B", "B"},
+            {"B", "B", " ", " ", " ", " ", " ", "B", "B"},
+            {"B", "B", " ", " ", "B", " ", " ", "B", "B"},
             {"B", "B", " ", "B", "B", "B", " ", "B", "B"},
             {"B", "B", " ", " ", " ", " ", " ", "B", "B"},
             {"B", " ", " ", "B", "B", "B", " ", " ", "B"},
@@ -18,6 +20,25 @@ public class BattelField {
 
     public BattelField () {
 
+    }
+
+    public String getAgressorLocation () {
+        String rez;
+        Random random = new Random();
+        int i;
+        i = random.nextInt(3);
+        if (i == 0) {
+            rez = "64_64";
+        } else {
+            if (i == 1) {
+                rez = "192_256";
+            }
+            else {
+                rez = "64_448";
+            }
+        }
+//        System.out.print(rez);
+        return rez;
     }
 
     public BattelField (String [][] BattelField) {

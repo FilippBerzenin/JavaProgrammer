@@ -4,10 +4,11 @@ import java.util.Random;
 
 public class Tank {
 
-    protected int speed = 10;
+    protected int speed = 5;
 
     private int x;
     private int y;
+    private Bullet bullet;
 
     // 1 - up, 2- down, 3 - left, 4 - right
     private Direction direction;
@@ -22,17 +23,17 @@ public class Tank {
     private ActionField af;
     private BattelField bf;
 
-//    public Tank (ActionField af, BattelField bf) {
-//        this(af, bf, 128, 512, Direction.TOP);
-//    }
-//
-//    public Tank (ActionField af, BattelField bf, int x, int y, Direction direction) {
-//        this.af = af;
-//        this.bf = bf;
-//        this.x = x;
-//        this.y = y;
-//        this.direction = direction;
-//    }
+    public Tank (ActionField af, BattelField bf) {
+        this(af, bf, 64, 448, Direction.LEFT);
+    }
+
+    public Tank (ActionField af, BattelField bf, int x, int y, Direction direction) {
+        this.af = af;
+        this.bf = bf;
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+    }
 
     public void setX(int x) {
         this.x = x;
@@ -52,9 +53,9 @@ public class Tank {
         af.processMove(this);
     }
 
-    public void fire () throws Exception {
+    public void fire (Tank tank) throws Exception {
         Bullet bullet = new Bullet(x+25, y+25, direction);
-        af.processFire(bullet);
+        af.processFire(bullet, tank);
     }
 
     public void moveRandom()throws Exception  {
@@ -99,13 +100,13 @@ public class Tank {
         y = -100;
     }
 
-    public void moveToQuadrant(int v, int h) throws Exception {
-        af.processMoveToQuadrant(v,h);
+    public void moveToQuadrant(int v, int h, Tank tank) throws Exception {
+        af.processMoveToQuadrant(v,h, tank);
     }
 
 
-    public void clean() throws Exception {
-        af.processClean();
+    public void clean(Tank tank) throws Exception {
+        af.processClean(this);
     }
 
     @Override

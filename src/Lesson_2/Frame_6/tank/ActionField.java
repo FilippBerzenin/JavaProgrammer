@@ -2,6 +2,8 @@ package Lesson_2.Frame_6.tank;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Array;
+import java.util.Arrays;
 
 public class ActionField extends JPanel {
 
@@ -9,24 +11,17 @@ public class ActionField extends JPanel {
 
     private BattelField battelField;
 //    private Tank tank;
-    private int t;
-//    private Tank agressor;
+    private Tank defender;
+    private BT7 agressor;
     private Bullet bullet;
-
-    private Tank[] tank = new Tank[2];
+    private Tank [] tanks = new Tank[2];
 
     void runTheGame() throws Exception {
-        tank[0].move();
-//        tank[1].clean();
-// //      tank.moveRandom();
-//       tank.moveToQuadrant(5,5);
-//       tank.fire();
-//       tank.fire();
-//       tank.fire();
-//       tank.move();
-//       tank.turn(Direction.LEFT);
-//       tank.fire();
-//       tank.move();
+//        agressor.clean(agressor);
+        defender.clean(defender);
+        defender.fire(defender);
+        defender.fire(defender);
+        defender.fire(defender);
     }
 
     public void processTurn (Tank tank) throws Exception {
@@ -34,7 +29,6 @@ public class ActionField extends JPanel {
     }
 
     public void processMove (Tank tank) throws Exception {
-        tank = tank;
         Direction direction = tank.getDirection();
         int step = tank.getSTEP();
         int covered = 0;
@@ -69,62 +63,66 @@ public class ActionField extends JPanel {
         }
     }
 
-    public void processMoveToQuadrant(int v, int h) throws Exception {
+    public void processMoveToQuadrant(int v, int h, Tank tank) throws Exception {
         String coordinates = getQuadrantXY(v, h);
         int separator = coordinates.indexOf("_");
         int y = Integer.parseInt(coordinates.substring(0, separator));
         int x = Integer.parseInt(coordinates.substring(separator + 1));
         System.out.println("Driver! We have a route! Coordinates " + "Vertikal " + v + " "
                 + "Horizontal " + h + " Go, go, go!");
-        if (tank[t].getX() < x) {
-            tank[t].turn(tank[t].getRIGHT());
-            while (tank[t].getX() != x) {
-                tank[t].move();
+        if (tank.getX() < x) {
+            tank.turn(tank.getRIGHT());
+            while (tank.getX() != x) {
+                tank.move();
             }
         } else {
-            tank[t].turn(tank[t].getLEFT());
-            while (tank[t].getX() != x) {
-                tank[t].move();
+            tank.turn(tank.getLEFT());
+            while (tank.getX() != x) {
+                tank.move();
             }
         }
-        if (tank[t].getY() < y) {
-            tank[t].turn(tank[t].getBOTTOM());
-            while (tank[t].getY() != y) {
-                tank[t].move();
+        if (tank.getY() < y) {
+            tank.turn(tank.getBOTTOM());
+            while (tank.getY() != y) {
+                tank.move();
             }
         } else {
-            tank[t].turn(tank[t].getTOP());
-            while (tank[t].getY() != y) {
-                tank[t].move();
+            tank.turn(tank.getTOP());
+            while (tank.getY() != y) {
+                tank.move();
             }
         }
     }
 
 
-    public void processClean ()throws Exception  {
+    public void processClean (Tank tank)throws Exception  {
         for (int i = 1; i < battelField.battleField.length + 1; i++) {
-            tank[t].moveToQuadrant(i, 1);
+            tank.moveToQuadrant(i, 1, tank);
 //            af.scanTargetTop();
 //            af.scanTargetLeft();
 //            af.scanTargetBottom();
-            scanTargetRight();
+            scanTargetRight(tank);
         }
     }
 
-    public void processFire (Bullet bullet) throws Exception {
+    public void processFire (Bullet bullet, Tank tank) throws Exception {
+//        System.out.println(Arrays.toString(tanks));
+        setArrayTanks(tank);
+//        System.out.println(Arrays.toString(tanks));
         this.bullet = bullet;
         int step = 1;
         while (bullet.getX() > -bullet.getBULLET_SIZE() && bullet.getX() < (bullet.getBULLET_SIZE() + battelField.getBF_WIDTH())
                 && bullet.getY() > -bullet.getBULLET_SIZE() && bullet.getY() < (bullet.getBULLET_SIZE() + battelField.getBF_HEIGHT())) {
-            if (bullet.getDirction() == tank[t].getTOP()) {
+            if (bullet.getDirction() == tank.getTOP()) {
                 bullet.updateY(-step);
-            } else if (bullet.getDirction() == tank[t].getBOTTOM()) {
+            } else if (bullet.getDirction() == tank.getBOTTOM()) {
                 bullet.updateY(+step);
-            } else if (bullet.getDirction() == tank[t].getLEFT()) {
+            } else if (bullet.getDirction() == tank.getLEFT()) {
                 bullet.updateX(-step);
             } else {
                 bullet.updateX(+step);
             }
+//            System.out.println("Bullet Y: "+bullet.getY()+" X: "+bullet.getX()+"Tank position: Y:"+tanks[1].getY()+" X:"+tanks[1].getX());
             if (processInterception()) {
                 bullet.destroy();
             }
@@ -133,61 +131,73 @@ public class ActionField extends JPanel {
         }
     }
 
-    void scanTargetTop() throws Exception {
-        int indexHorizontal = getCoordinatesX();
-        tank[t].turn(tank[t].getTOP());
-        for (int i = tank[t].getY(); i > -(battelField.getBF_HEIGHT()/battelField.getDimentionY()); i -= (battelField.getBF_HEIGHT()/battelField.getDimentionY())) {
+    private void setArrayTanks (Tank tank) {
+        int i;
+        for (i = 0; i < tanks.length; i++) {
+            if (tank.toString().equals(tanks[i].toString())) {
+
+                Tank mem = tanks[0];
+                tanks[0] = tank;
+                tanks[i] = mem;
+            }
+        }
+    }
+
+    void scanTargetTop(Tank tank) throws Exception {
+        int indexHorizontal = getCoordinatesX(tank);
+        tank.turn(tank.getTOP());
+        for (int i = tank.getY(); i > -(battelField.getBF_HEIGHT()/battelField.getDimentionY()); i -= (battelField.getBF_HEIGHT()/battelField.getDimentionY())) {
             int indexVertikal = (i / (battelField.getBF_HEIGHT()/battelField.getDimentionY()));
             if (battelField.scanQuadrant(indexVertikal, indexHorizontal).equals("B")) {
                 System.out.println("We have target!");
-                tank[t].fire();
+                tank.fire(tank);
             }
         }
     }
 
-    void scanTargetBottom() throws Exception {
-        int indexHorizontal = getCoordinatesX();
-        tank[t].turn(tank[t].getBOTTOM());
-        for (int i = tank[t].getY(); i < battelField.getBF_HEIGHT(); i += (battelField.getBF_HEIGHT()/battelField.getDimentionY())) {
+    void scanTargetBottom(Tank tank) throws Exception {
+        int indexHorizontal = getCoordinatesX(tank);
+        tank.turn(tank.getBOTTOM());
+        for (int i = tank.getY(); i < battelField.getBF_HEIGHT(); i += (battelField.getBF_HEIGHT()/battelField.getDimentionY())) {
             int indexVertikal = (i / (battelField.getBF_HEIGHT()/battelField.getDimentionY()));
             if (battelField.scanQuadrant(indexVertikal, indexHorizontal).equals("B")) {
                 System.out.println("We have target!");
-                tank[t].fire();
+                tank.fire(tank);
             }
         }
     }
 
-    void scanTargetLeft(int t) throws Exception {
-        int indexVertikal = getCoordinatesY();
-        tank[t].turn(tank[t].getRIGHT());
-        for (int i = tank[t].getX(); i < battelField.getBF_WIDTH(); i -= (battelField.getBF_WIDTH()/battelField.getDimentionX())) {
+    void scanTargetLeft(Tank tank) throws Exception {
+        int indexVertikal = getCoordinatesY(tank);
+        tank.turn(tank.getRIGHT());
+        for (int i = tank.getX(); i < battelField.getBF_WIDTH(); i -= (battelField.getBF_WIDTH()/battelField.getDimentionX())) {
             int indexHorizontal = (i / (battelField.getBF_WIDTH()/battelField.getDimentionX()));
             if (battelField.scanQuadrant(indexVertikal, indexHorizontal).equals("B")) {
                 System.out.println("We have target!");
-                tank[t].fire();
+                tank.fire(tank);
             }
         }
     }
 
-    void scanTargetRight() throws Exception {
-        int indexVertikal = getCoordinatesY();
-        tank[t].turn(tank[t].getRIGHT());
-        for (int i = tank[t].getX(); i < battelField.getBF_WIDTH(); i += (battelField.getBF_WIDTH()/battelField.getDimentionX())) {
+    void scanTargetRight(Tank tank) throws Exception {
+        int indexVertikal = getCoordinatesY(tank);
+        tank.turn(tank.getRIGHT());
+        for (int i = tank.getX(); i < battelField.getBF_WIDTH(); i += (battelField.getBF_WIDTH()/battelField.getDimentionX())) {
             int indexHorizontal = (i / (battelField.getBF_WIDTH()/battelField.getDimentionX()));
             if (battelField.scanQuadrant(indexVertikal, indexHorizontal).equals("B")) {
                 System.out.println("We have target!");
-                tank[t].fire();
+                tank.fire(tank);
             }
         }
     }
 
-    int getCoordinatesX() {
-        int CoordinatesX = tank[t].getX() / (battelField.getBF_WIDTH()/battelField.getDimentionX());
+    int getCoordinatesX(Tank tank) {
+        int CoordinatesX = tank.getX() / (battelField.getBF_WIDTH()/battelField.getDimentionX());
         return CoordinatesX;
     }
 
-    int getCoordinatesY() {
-        int CoordinatesY = tank[t].getY() / (battelField.getBF_HEIGHT()/battelField.getDimentionY());
+    int getCoordinatesY(Tank tank) {
+        int CoordinatesY = tank.getY() / (battelField.getBF_HEIGHT()/battelField.getDimentionY());
         return CoordinatesY;
     }
 
@@ -206,18 +216,77 @@ public class ActionField extends JPanel {
 //        return bulletBorder;
 //    }
 
-    private boolean processInterception() {
-        String coordinates = getQuadrant(bullet.getX(), bullet.getY());
-        int y = Integer.parseInt(coordinates.split("_")[0]);
-        int x = Integer.parseInt(coordinates.split("_")[1]);
-
+    private boolean processInterceptionBricks (int y, int x) throws Exception {
         if(y >= 0 && y < 9 && x >=0 && x < 9) {
-            if (!battelField.scanQuadrant(y, x).trim().isEmpty()) {
+            if (battelField.scanQuadrant(y, x).equals("B")) {
                 battelField.updateQuadrant(y, x, "");
+//                System.out.println(tanks[0].toString());
                 return true;
             }
         }
         return false;
+    }
+
+    private boolean processInterceptionTank () {
+        if (bullet.getDirction() == Direction.TOP) {
+            if ((agressor.getY()+64) == bullet.getY() && agressor.getX() == bullet.getX() - 25) {
+                System.out.print("Bingo!");
+//                tankRecovery();
+                return true;
+            }
+        }
+         else if (bullet.getDirction() == Direction.BOTTOM) {
+            if (agressor.getY() == bullet.getY() && agressor.getX() == bullet.getX() - 25) {
+                System.out.print("Bingo!");
+//                tankRecovery();
+                return true;
+            }
+        }
+        else if (bullet.getDirction() == Direction.LEFT) {
+            if (agressor.getX()+64 == bullet.getX() && agressor.getY() == bullet.getY() - 25) {
+                System.out.print("Bingo!");
+//                tankRecovery();
+                return true;
+            }
+        }
+        else if (bullet.getDirction() == Direction.RIGHT) {
+            if (agressor.getX() == bullet.getX() && agressor.getY() == bullet.getY() - 25) {
+                System.out.print("Bingo!");
+//                tankRecovery();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean processInterception() throws Exception {
+        String coordinates = getQuadrant(bullet.getX(), bullet.getY());
+        int y = Integer.parseInt(coordinates.split("_")[0]);
+        int x = Integer.parseInt(coordinates.split("_")[1]);
+
+        if (processInterceptionBricks (y, x) == true) {
+            return true;
+        }
+        else if (processInterceptionTank() == true) {
+            agressor.tankDestroy();
+            bullet.destroy();
+            repaint();
+            Thread.sleep(1700);
+            tankRecovery();
+        }
+        return false;
+    }
+
+    public void tankRecovery () throws Exception  {
+        String location = battelField.getAgressorLocation();
+        int x = Integer.parseInt(location.split("_")[1]);
+        int y = Integer.parseInt(location.split("_")[0]);
+        agressor = new BT7(this, battelField, x, y, Direction.LEFT);
+        System.out.println("I am a live!");
+        tanks[1] = agressor;
+        repaint();
+//        Thread.sleep(1700);
+//        repaint();
     }
 
     public String getQuadrant(int x, int y) {
@@ -231,20 +300,13 @@ public class ActionField extends JPanel {
     public ActionField() throws Exception {
         battelField = new BattelField();
 
-        tank[0] = new Tank();
-        tank[0].setAf(this);
-        tank[0].setBf(battelField);
-        tank[0].setX(256);
-        tank[0].setY(256);
-        tank[0].setDirection(Direction.TOP);
+        defender = new Tank(this, battelField, 448, 64, Direction.LEFT);
+        tanks[0] = defender;
 
-        tank[1] = new BT7();
-        tank[1].setAf(this);
-        tank[1].setBf(battelField);
-        tank[1].setX(512);
-        tank[1].setY(512);
-        tank[1].setDirection(Direction.BOTTOM);
-
+        String location = battelField.getAgressorLocation();
+        agressor = new BT7(this, battelField, Integer.parseInt(location.split("_")[1]),
+                Integer.parseInt(location.split("_")[0]), Direction.LEFT);
+        tanks[1] = agressor;
         bullet = new Bullet(-100, -100, Direction.TOP);
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
@@ -292,25 +354,37 @@ public class ActionField extends JPanel {
             }
         }
 
+        // defender
+        g.setColor(new Color(0, 255, 0));
+        g.fillRect(defender.getX(), defender.getY(), 64, 64);
+
         g.setColor(new Color(255, 0, 0));
-        g.fillRect(tank[t].getX(), tank[t].getY(), 64, 64);
+        if (defender.getDirection() == Direction.TOP) {
+            g.fillRect(defender.getX() + 20, defender.getY(), 24, 34);
+        } else if (defender.getDirection() == Direction.BOTTOM) {
+            g.fillRect(defender.getX() + 20, defender.getY() + 30, 24, 34);
+        } else if (defender.getDirection() == Direction.LEFT) {
+            g.fillRect(defender.getX(), defender.getY() + 20, 34, 24);
+        } else {
+            g.fillRect(defender.getX() + 30, defender.getY() + 20, 34, 24);
+        }
+
+        // aggressor
+        g.setColor(new Color(255, 0, 0));
+        g.fillRect(agressor.getX(), agressor.getY(), 64, 64);
 
         g.setColor(new Color(0, 255, 0));
-        if (tank[t].getDirection() == Direction.TOP) {
-            g.fillRect(tank[t].getX() + 20, tank[t].getY(), 24, 34);
-        } else if (tank[t].getDirection() == Direction.BOTTOM) {
-            g.fillRect(tank[t].getX() + 20, tank[t].getY() + 30, 24, 34);
-        } else if (tank[t].getDirection() == Direction.LEFT) {
-            g.fillRect(tank[t].getX(), tank[t].getY() + 20, 34, 24);
+        if (agressor.getDirection() == Direction.TOP) {
+            g.fillRect(agressor.getX() + 20, agressor.getY(), 24, 34);
+        } else if (agressor.getDirection() == Direction.BOTTOM) {
+            g.fillRect(agressor.getX() + 20, agressor.getY() + 30, 24, 34);
+        } else if (agressor.getDirection() == Direction.LEFT) {
+            g.fillRect(agressor.getX(), agressor.getY() + 20, 34, 24);
         } else {
-            g.fillRect(tank[t].getX() + 30, tank[t].getY() + 20, 34, 24);
+            g.fillRect(agressor.getX() + 30, agressor.getY() + 20, 34, 24);
         }
 
         g.setColor(new Color(255, 255, 0));
         g.fillRect(bullet.getX(), bullet.getY(), 14, 14);
-    }
-
-    public void setT(int t) {
-        this.t = t;
     }
 }
