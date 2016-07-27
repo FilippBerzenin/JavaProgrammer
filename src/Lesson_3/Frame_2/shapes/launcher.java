@@ -1,5 +1,8 @@
 package Lesson_3.Frame_2.shapes;
 
+//import Lesson_3.Frame_2.shapes.Glyph;
+import Lesson_3.Frame_2.shapes.Glyph.Drawable;
+
 public class launcher {
 
     public static void main(String[] args) {
@@ -9,7 +12,7 @@ public class launcher {
 //        Rectangle r = new Rectangle();
 //        Triangle t = new Triangle();
 //
-        Shape[] s = new Shape[] {
+        Drawable[] s = new Drawable[] {
                 new Circle(),
                 new Rectangle(),
                 new Triangle(),

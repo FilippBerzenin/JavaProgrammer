@@ -1,5 +1,7 @@
 package Lesson_3.Frame_2.shapes;
 
+    import Lesson_3.Frame_2.shapes.Glyph.Drawable;
+
     import java.awt.Dimension;
     import java.awt.Graphics;
     import javax.swing.JFrame;
@@ -8,9 +10,9 @@ package Lesson_3.Frame_2.shapes;
 
     public class ShapesTemplite extends JPanel {
 
-        private Shape[] shapes;
+        private Drawable[] shapes;
 
-        public ShapesTemplite(Shape[] shapes) {
+        public ShapesTemplite(Drawable[] shapes) {
             this.shapes = shapes;
             if (shapes == null || shapes.length < 1) {
                 this.shapes = new Shape[0];
@@ -29,7 +31,7 @@ package Lesson_3.Frame_2.shapes;
 
         @Override
         protected void paintComponent(Graphics g) {
-            for (Shape s : shapes) {
+            for (Drawable s : shapes) {
                 s.draw(g);
             }
         }
