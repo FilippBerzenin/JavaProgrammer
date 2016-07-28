@@ -323,7 +323,7 @@ public class ActionField extends JPanel {
     public ActionField() throws Exception {
         battelField = new BattelField();
 
-        defender = new BT7(this, battelField, 448, 64, Direction.LEFT);
+        defender = new T34(this, battelField, 448, 64, Direction.LEFT);
         abstractTanks[0] = defender;
 
         String location = battelField.getAgressorLocation();
