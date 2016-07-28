@@ -2,7 +2,7 @@ package Lesson_3.Frame_3.Tank;
 
 import java.util.Random;
 
-public abstract class AbstractTank {
+public abstract class AbstractTank implements Drawable, Destroyable {
 
     protected int speed = 10;
 

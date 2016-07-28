@@ -19,6 +19,16 @@ public class BT7 extends AbstractTank {
 
 
     @Override
+    public void tankDestroy() {
+        super.tankDestroy();
+    }
+
+    @Override
+    public void draw() {
+        af.repaint();
+    }
+
+    @Override
     public String toString() {
         return "BT7 ";
     }
