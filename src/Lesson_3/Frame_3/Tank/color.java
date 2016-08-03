@@ -1,5 +1,7 @@
 package Lesson_3.Frame_3.Tank;
 
+import java.awt.*;
+
 /**
  * Created by Samsung on 26.04.2016.
  */

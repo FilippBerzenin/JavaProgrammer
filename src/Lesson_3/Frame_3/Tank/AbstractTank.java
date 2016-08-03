@@ -1,5 +1,6 @@
 package Lesson_3.Frame_3.Tank;
 
+import java.awt.*;
 import java.util.Random;
 
 public abstract class AbstractTank implements Drawable, Destroyable {
@@ -10,6 +11,8 @@ public abstract class AbstractTank implements Drawable, Destroyable {
     protected int y;
     protected Bullet bullet;
     protected int armor = 0;
+    protected Color tankColor;
+    protected Color towerColor;
 
     // 1 - up, 2- down, 3 - left, 4 - right
     protected Direction direction;
@@ -34,6 +37,24 @@ public abstract class AbstractTank implements Drawable, Destroyable {
         this.x = x;
         this.y = y;
         this.direction = direction;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+// aggressor
+        g.setColor(tankColor);
+        g.fillRect(this.getX(), this.getY(), 64, 64);
+
+        g.setColor(towerColor);
+        if (this.getDirection() == Direction.TOP) {
+            g.fillRect(this.getX() + 20, this.getY(), 24, 34);
+        } else if (this.getDirection() == Direction.BOTTOM) {
+            g.fillRect(this.getX() + 20, this.getY() + 30, 24, 34);
+        } else if (this.getDirection() == Direction.LEFT) {
+            g.fillRect(this.getX(), this.getY() + 20, 34, 24);
+        } else {
+            g.fillRect(this.getX() + 30, this.getY() + 20, 34, 24);
+        }
     }
 
     public int getArmor() {
@@ -201,5 +222,37 @@ public abstract class AbstractTank implements Drawable, Destroyable {
 
     public void setBf(BattelField bf) {
         this.bf = bf;
+    }
+
+    public Bullet getBullet() {
+        return bullet;
+    }
+
+    public void setBullet(Bullet bullet) {
+        this.bullet = bullet;
+    }
+
+    public Color getTankColor() {
+        return tankColor;
+    }
+
+    public void setTankColor(Color tankColor) {
+        this.tankColor = tankColor;
+    }
+
+    public Color getTowerColor() {
+        return towerColor;
+    }
+
+    public void setTowerColor(Color towerColor) {
+        this.towerColor = towerColor;
+    }
+
+    public ActionField getAf() {
+        return af;
+    }
+
+    public BattelField getBf() {
+        return bf;
     }
 }
