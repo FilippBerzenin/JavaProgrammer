@@ -1,6 +1,12 @@
 package Lesson_3.Frame_3.Tank;
 
+
 import Lesson_3.Frame_3.Tank.Code.Utilites;
+import Lesson_3.Frame_3.Tank.Interface.Drawable;
+import Lesson_3.Frame_3.Tank.Objects.Bullet;
+import Lesson_3.Frame_3.Tank.Objects.Enum.Direction;
+import Lesson_3.Frame_3.Tank.Objects.Fields.*;
+import Lesson_3.Frame_3.Tank.Objects.Tanks.*;
 
 import javax.swing.*;
 import java.awt.*;

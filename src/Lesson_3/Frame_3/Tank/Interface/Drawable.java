@@ -1,4 +1,4 @@
-package Lesson_3.Frame_3.Tank;
+package Lesson_3.Frame_3.Tank.Interface;
 
 import java.awt.*;
 

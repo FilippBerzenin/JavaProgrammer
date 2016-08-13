@@ -1,4 +1,8 @@
-package Lesson_3.Frame_3.Tank;
+package Lesson_3.Frame_3.Tank.Objects;
+
+import Lesson_3.Frame_3.Tank.Interface.Destroyable;
+import Lesson_3.Frame_3.Tank.Objects.Enum.Direction;
+import Lesson_3.Frame_3.Tank.Interface.Drawable;
 
 import java.awt.*;
 

@@ -1,4 +1,10 @@
-package Lesson_3.Frame_3.Tank;
+package Lesson_3.Frame_3.Tank.Objects.Tanks;
+
+import Lesson_3.Frame_3.Tank.*;
+import Lesson_3.Frame_3.Tank.Interface.Destroyable;
+import Lesson_3.Frame_3.Tank.Interface.Drawable;
+import Lesson_3.Frame_3.Tank.Objects.Bullet;
+import Lesson_3.Frame_3.Tank.Objects.Enum.Direction;
 
 import java.awt.*;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package Lesson_3.Frame_3.Tank;
+package Lesson_3.Frame_3.Tank.Objects.Enum;
 
 /**
  * Created by Samsung on 17.05.2016.

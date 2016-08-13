@@ -1,4 +1,4 @@
-package Lesson_3.Frame_3.Tank;
+package Lesson_3.Frame_3.Tank.Objects.Fields;
 
 import Lesson_3.Frame_3.Tank.Code.Field;
 import Lesson_3.Frame_3.Tank.Code.Utilites;
@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Brick extends Field {
 
-    Brick(int x, int y, Graphics g) {
+    public Brick(int x, int y, Graphics g) {
         super(x, y, g);
     }
 
