@@ -5,5 +5,5 @@ package Lesson_3.Frame_3.Tank;
  */
 public interface Destroyable {
 
-    void tankDestroy();
+    void Destroy();
 }

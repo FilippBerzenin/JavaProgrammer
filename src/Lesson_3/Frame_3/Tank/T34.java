@@ -17,7 +17,7 @@ public class T34 extends AbstractTank {
     }
 
     @Override
-    public void tankDestroy() {
-        super.tankDestroy();
+    public void Destroy() {
+        super.Destroy();
     }
 }

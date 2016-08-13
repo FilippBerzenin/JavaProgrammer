@@ -21,8 +21,8 @@ public class BT7 extends AbstractTank {
 
 
     @Override
-    public void tankDestroy() {
-        super.tankDestroy();
+    public void Destroy() {
+        super.Destroy();
     }
 
     @Override

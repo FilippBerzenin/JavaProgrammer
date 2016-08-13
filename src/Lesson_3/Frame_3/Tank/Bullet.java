@@ -28,7 +28,7 @@ public class Bullet implements Drawable, Destroyable {
     }
 
     @Override
-    public void tankDestroy() {
+    public void Destroy() {
         x = -100;
         y = -100;
 

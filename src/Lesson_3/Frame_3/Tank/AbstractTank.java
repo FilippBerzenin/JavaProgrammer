@@ -125,7 +125,7 @@ public abstract class AbstractTank implements Drawable, Destroyable {
     }
 
 
-    public void tankDestroy () {
+    public void Destroy () {
         x = -100;
         y = -100;
     }
