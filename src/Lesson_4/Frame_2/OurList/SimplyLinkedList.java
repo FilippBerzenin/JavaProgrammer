@@ -7,6 +7,10 @@ public class SimplyLinkedList {
     Note root;
     int size;
 
+    SimplyLinkedList () {
+        size = 0;
+    }
+
     public void addFirstObject (Object o) {
 
     }
@@ -15,11 +19,17 @@ public class SimplyLinkedList {
 
     }
 
-    public void addAfterObject (Object f, Object s) {
+    public void addAfterObject (Object o, Object prev) {
 
     }
 
     public int size () {
         return size;
+    }
+
+    public class Note {
+
+        Objects o;
+        Note note;
     }
 }
