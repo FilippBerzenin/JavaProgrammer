@@ -2,12 +2,12 @@ package Lesson_4.Frame_2.OurList;
 
 import java.util.Objects;
 
-public class Note {
+public class Node {
 
     private Objects o;
-    private Note note;
+    private Node node;
 
-    Note () {
+    Node() {
 
     }
 
@@ -19,11 +19,11 @@ public class Note {
         this.o = o;
     }
 
-    public Note getNote() {
-        return note;
+    public Node getNote() {
+        return node;
     }
 
-    public void setNote(Note note) {
-        this.note = note;
+    public void setNote(Node note) {
+        this.node = note;
     }
 }

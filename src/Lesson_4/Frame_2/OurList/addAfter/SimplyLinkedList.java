@@ -1,8 +1,4 @@
-package Lesson_4.Frame_2.OurList;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+package Lesson_4.Frame_2.OurList.addAfter;
 
 public class SimplyLinkedList {
 
@@ -28,7 +24,23 @@ public class SimplyLinkedList {
     }
 
     public void addLastObject (Object o) {
+        Node n = new Node();
+        n.o = o;
 
+        if (root == null) {
+            root = n;
+        }
+        else {
+            Node last = root;
+            Node cp = root;
+            while (cp.node != null) {
+                last = cp;
+                cp = cp.node;
+
+            }
+            last.node = n;
+        }
+        size++;
     }
 
     public void addAfterObject (Object o, Object prev) {
