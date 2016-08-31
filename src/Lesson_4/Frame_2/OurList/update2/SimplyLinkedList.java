@@ -24,7 +24,23 @@ public class SimplyLinkedList {
     }
 
     public void addLastObject (Object o) {
+        Node n = new Node();
+        n.o = o;
 
+        if (root == null) {
+            root = n;
+        }
+        else {
+            Node last = root;
+            Node cp = root;
+            while (cp.node != null) {
+                last = cp;
+                cp = cp.node;
+
+            }
+            last.node = n;
+        }
+        size++;
     }
 
     public void addAfterObject (Object o, Object prev) {
