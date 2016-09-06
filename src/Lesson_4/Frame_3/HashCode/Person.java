@@ -7,6 +7,7 @@ public class Person {
     private String name;
     private int age;
     private long salary;
+    private Adress a;
 
     Person () {
 
@@ -14,18 +15,12 @@ public class Person {
 
     @Override
     public int hashCode() {
-        final int perem = 37;
-        int rez = 10;
-
-        if (name == null) {
-            rez = perem * rez + ((Integer) age).hashCode();
-            rez = perem * rez + ((Long) salary).hashCode();
-        } else {
-            rez = perem * rez + name.hashCode();
-            rez = perem * rez + ((Integer) age).hashCode();
-            rez = perem * rez + ((Long) salary).hashCode();
-        }
-        return rez;
+        int rezalt = 25;
+            rezalt = 37 * rezalt + name.hashCode();
+            rezalt = 37 * rezalt + ((Integer) age);
+            rezalt = 37 * rezalt +  new Long (salary).hashCode();
+            rezalt = 37 * rezalt + a.hashCode();
+        return rezalt;
     }
 
     @Override
@@ -59,5 +54,14 @@ public class Person {
 
     public void setSalary(long salary) {
         this.salary = salary;
+    }
+
+    public Adress getA(String n, String b, int c) {
+        Adress a = new Adress(n, b, c);
+        return a;
+    }
+
+    public void setA(Adress a) {
+        this.a = a;
     }
 }
