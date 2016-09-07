@@ -1,6 +1,10 @@
 package Lesson_4.Frame_2.OurList.addAfter;
 
-public class SimplyLinkedList {
+import jdk.nashorn.internal.ir.WhileNode;
+
+import java.util.Iterator;
+
+public class SimplyLinkedList implements Iterable <Object> {
 
     Node root;
     int size;
@@ -43,7 +47,30 @@ public class SimplyLinkedList {
         size++;
     }
 
-    public void addAfterObject (Object o, Object prev) {
+    public void addAfterObject (Object obj, Object prev) {
+        Node prevPointer = null;
+        Node cp = root;
+
+        do {
+            if (cp.o == prev) {
+                prevPointer = cp;
+                break;
+            }
+            cp = cp.node;
+        } while (cp != null && cp.node !=null);
+
+        if (prevPointer == null) {
+            throw new IllegalStateException("Bad");
+        }
+
+        Node n = new Node();
+        n.o = obj;
+
+        if (prevPointer != null) {
+            n.node = prevPointer.node;
+        }
+        prevPointer.node = n;
+        size++;
 
     }
 
@@ -51,8 +78,24 @@ public class SimplyLinkedList {
         return size;
     }
 
+    @Override
+    public Iterator<Object> iterator() {
+        return null;
+    }
+
     private class Node {
         Object o;
         Node node;
+    }
+
+    private class SSLIterrator {
+
+        private void next () {
+
+        }
+
+        private void HasNext () {
+
+        }
     }
 }

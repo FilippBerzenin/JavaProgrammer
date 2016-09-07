@@ -7,19 +7,22 @@ public class Launcher {
     public static void main (String[] args) {
 
         Person fil = new Person();
-        fil.setName("Fil");
+        fil.setName("Fily");
         fil.setAge(34);
         fil.setSalary(10000);
+        fil.getA("Dnepr", "Checherinf", 18);
 
         Person kant = new Person();
-        fil.setName("Kant");
-        fil.setAge(36);
-        fil.setSalary(10000);
+        kant.setName("Kant");
+        kant.setAge(36);
+        kant.setSalary(10000);
+        kant.getA("Dnepr", "Checherinf", 18);
 
         Person vika = new Person();
-        fil.setName("Vika");
-        fil.setAge(33);
-        fil.setSalary(10000);
+        vika.setName("Vika");
+        vika.setAge(33);
+        vika.setSalary(10000);
+        vika.getA("Dnepr", "Checherinf", 18);
 
         System.out.println (fil.getName() + fil.hashCode());
         System.out.println (kant.getName() + kant.hashCode());
