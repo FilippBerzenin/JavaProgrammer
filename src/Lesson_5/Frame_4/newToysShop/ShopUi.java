@@ -5,6 +5,8 @@ import Lesson_5.Frame_4.newToysShop.Objects.Toys;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -65,6 +67,13 @@ public class ShopUi extends JPanel {
 
         JButton buttonBuy = new JButton("Buy");
         panel.add(buttonBuy, new GridBagConstraints(1, 3, 1, 1, 0, 0, GridBagConstraints.LINE_START, 0, new Insets(3,0,0,0),0,0));
+
+        buttonBuy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Ok, we will be thinking...");
+            }
+        });
 
 
         return panel;
